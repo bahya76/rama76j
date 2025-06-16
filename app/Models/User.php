@@ -22,7 +22,7 @@ class User extends Authenticatable
         'email',
         'password',
         'phone_number',
-        'is_admin', 
+        'role', // بدل is_admin
         'verify_code',
         'is_approved',
     ];
@@ -37,7 +37,21 @@ class User extends Authenticatable
         'remember_token',
         'verify_code', // يمكن إخفاؤه إن أردتِ عدم إظهاره للـ frontend
 
-    ];
+    ]; 
+    public function isSuperAdmin()
+    {
+        return $this->role === 'super_admin';
+    }
+
+    public function isTrainer()
+    {
+        return $this->role === 'trainer';
+    }
+
+    public function isUser()
+    {
+        return $this->role === 'user';
+    }
 
     /**
      * The attributes that should be cast.
@@ -54,4 +68,9 @@ class User extends Authenticatable
 {
     return $this->hasOne(UserHealthProfile::class);
 }
+public function trainer()
+{
+    return $this->belongsTo(Trainer::class);
+}
+
 }

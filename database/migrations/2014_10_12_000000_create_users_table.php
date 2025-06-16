@@ -19,8 +19,9 @@ return new class extends Migration
             $table->boolean('is_admin')->default(false);
             $table->string('password');
             $table->string('phone_number')->unique();
-            $table->string('verify_code')->nullable(); // << كود التحقق
-            $table->boolean('is_approved')->default(false); // << تمت الموافقة؟
+            $table->string('verify_code')->nullable(); // كود التحقق
+            $table->boolean('is_approved')->default(false); // تمت الموافقة؟
+            $table->enum('role', ['super_admin', 'trainer', 'user'])->default('user');
             $table->rememberToken();
             $table->timestamps();
         });

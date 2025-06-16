@@ -60,7 +60,7 @@ class UserController extends Controller
                 'name' => $user->name,
                 'email' => $user->email,
                 'phone_number' => $user->phone_number,
-                'is_admin' => $user->is_admin,
+                'role' => $user->role,
                 'is_approved' => $user->is_approved,
             ],
             'is_approved' => true,
@@ -88,9 +88,11 @@ class UserController extends Controller
         $data['password'] = Hash::make($data['password']);
         $data['verify_code'] = rand(1000, 99999);
         $data['is_approved'] = false;
+        $data['role'] = 'user';
+
 
         $user = User::create($data);
-        $user->is_admin = 0;
+    
 
      /*  Mail::raw("Your verification code is: {$user->verify_code}", function ($message) use ($user) {
             $message->to($user->email)
